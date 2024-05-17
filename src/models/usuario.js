@@ -1,10 +1,7 @@
 const mongoose = require("mongoose"); 
 const bcrypt = require("bcrypt"); 
-const adminSchema = mongoose.Schema({
-    usuario: {
-        type: String,
-        required: true
-    },
+const usuarioSchema = mongoose.Schema({
+    
     correo: {
         type: String,
         required: true
@@ -12,10 +9,15 @@ const adminSchema = mongoose.Schema({
     clave: {
         type: String,
         required: true
+    },
+    numero: {
+        type: Number,
+        required: false
     }
+
 });
-adminSchema.methods.encryptClave = async (clave) => {
+usuarioSchema.methods.encryptClave = async (clave) => {
     const salt = await bcrypt.genSalt(10);
     return bcrypt.hash(clave, salt);
 }
-module.exports = mongoose.model('Admin', adminSchema);
+module.exports = mongoose.model('Usuario', usuarioSchema);
